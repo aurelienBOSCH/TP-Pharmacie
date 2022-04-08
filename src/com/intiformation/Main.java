@@ -159,10 +159,10 @@ public class Main
 	public static void achat()
 	{
 	
+		System.out.println("Saisir la quantité du produit : ");
 		int quantite = sc.nextInt();
 		Medicament m = lireMedicament(); // il faut STOCKER notre objet créé par la fonction lire()
-		Client c = lireClient();
-		System.out.println("Saisir la quantité du produit " + m.getNom() +  " achetée : ");
+		Client c = lireClient();	
 	
 		m.setStock( m.getStock() - quantite);
 		c.setCredit(c.getCredit() + quantite * m.getPrix());
