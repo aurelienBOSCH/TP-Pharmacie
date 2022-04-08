@@ -38,7 +38,7 @@ public class Main
 		for(int i = 0; i < listeMedoc.size(); i++)
 		{
 		
-			if((listeMedoc.get(i).getNom() == "Doliprane"))
+			if((listeMedoc.get(i).getNom() == "Doliprane")) //marche pas avec nom_ecrit :/
 			{
 				System.out.println("Le médicament est bien renseigné dans la base de donnée");
 				verif = true;
