@@ -21,6 +21,7 @@ public class Client
 	{
 		super();
 		compteur ++;
+		this.id = compteur;
 		this.nom = nom;
 		this.credit = credit;
 	}
@@ -28,13 +29,7 @@ public class Client
 	
 //FONCTIONS
 	
-	public String affichage()
-	{
-		return toString();
-	}
-	
 
-	
 
 //TO STRING
 	
