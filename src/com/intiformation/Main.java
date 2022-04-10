@@ -14,14 +14,14 @@ public class Main
 	{
 		
 	Medicament m1 = new Medicament("Doliprane", 2.00, 50);
+	Medicament m2 = new Medicament("Aspirine",1.80, 120);
 	listeMedoc.add(m1);
-//	approvisionner(m1);
+	listeMedoc.add(m2);
+
 	
 	Client c1 = new Client("Henry", 0);
 	listeClient.add(c1);
-//	lireClient();
-	
-//	achat(c1, m1);
+
 	
 
 	boolean stop = false;
@@ -31,31 +31,43 @@ public class Main
 				+ " \n 2 : pour afficher un médicament et ses stocks"
 				+ " \n 3 : pour l'approvisionnement"
 				+ " \n 4 : pour l'achat"
-				+ " \n 5 : pour QUITTER");
+				+ " \n 5 : pour ajouter un nouveau client"
+				+ " \n 6 : pour ajouter une nouvelle référence de produit"
+				+ " \n 7 : pour QUITTER");
 		
 		int key = sc.nextInt();
 		switch (key) 
 			{
 			case 1 : 
 				affichageClient();
-				
+				System.out.println("******************************************************************************\n");
 				break;
 			case 2 : 
 				affichageMedoc();
-				
+				System.out.println("******************************************************************************\n");
 				break;
 				
 			case 3 : 
 				approvisionnement();
-			
+				System.out.println("******************************************************************************\n");
 				break;
 				
 			case 4 :
 				achat();
-				
+				System.out.println("******************************************************************************\n");
 				break;	
 				
 			case 5 :
+				ajoutClient();
+				System.out.println("******************************************************************************\n");
+				break;	
+				
+			case 6 :
+				ajoutMedoc();
+				System.out.println("******************************************************************************\n");
+				break;	
+				
+			case 7 :
 				quitter();
 				stop = true;
 				break;
@@ -94,12 +106,11 @@ public class Main
 				System.out.println("Le client est bien renseigné dans la base de donnée");
 				verif = true;
 				return listeClient.get(i);
-			
 				
 			}
 			else 
 			{
-				System.err.println("Pas de correspondance, recommençons");
+				
 				verif = false;
 		
 			}
@@ -107,6 +118,7 @@ public class Main
 	
 		}
 		while (verif == false);
+
 		return null;
 		
 	
@@ -131,13 +143,13 @@ public class Main
 			else 
 			{
 				
-				System.err.println("Pas de correspondance, recommançons");
 				verif = false;
 			}
 		}
 	
 		}
 		while (verif == false);
+		
 		return null;
 		
 		
@@ -152,7 +164,7 @@ public class Main
 			int quantite = sc.nextInt();
 			Medicament m = lireMedicament();
 			m.setStock(quantite + m.getStock());
-			System.out.println("L'approvisionnement est bien effectué. \n La nouvelle valeur du stock de " + m.getNom() + " est : " + 	m.getStock() );	
+			System.out.println("L'approvisionnement a été effectué. \nLa nouvelle valeur du stock de " + m.getNom() + " est : " + 	m.getStock() );	
 		
 	}
 	
@@ -163,9 +175,12 @@ public class Main
 		int quantite = sc.nextInt();
 		Medicament m = lireMedicament(); // il faut STOCKER notre objet créé par la fonction lire()
 		Client c = lireClient();	
-	
+	    System.out.println("Le client a actuellement un crédit de : " + c.getCredit() + " €");
+	    System.out.println("Saisir le montant délivré par le client : ");
+	    double montant = sc.nextDouble();
+	  
 		m.setStock( m.getStock() - quantite);
-		c.setCredit(c.getCredit() + quantite * m.getPrix());
+		c.setCredit(c.getCredit() + quantite * m.getPrix() - montant);
 	
 		System.out.println("La transaction a été effectué avec SUCCES");
 		
@@ -189,51 +204,35 @@ public class Main
 		System.out.println("Fin de l'application !");
 	}
 	
-//	public static boolean lireClient1ereversion()
-//	{
-//		boolean verif = false;
-//		do {
-//		System.out.println("Veuillez saisir respectivement le nom du client et son identifiant : ");
-//		String nom_ecrit = sc.next();
-//		int id_ecrit = sc.nextInt();
-//		
-//		for(int i = 0; i < listeClient.size(); i++)
-//		{
-//		
-//			if((listeClient.get(i).getNom().contains(nom_ecrit)) && (listeClient.get(i).getId() == id_ecrit))
-//			{
-//				System.out.println("Le client est bien renseigné dans la base de donnée");
-//				verif = true;
-//				return true;
-//				
-//				//System.out.println("Voici les information de l'employé avec l'identifiant : " + id + "\n " + ListeEmploye.get(i));
-//			}
-//			else 
-//			{
-//				System.err.println("Pas de correspondance, recommançons");
-//				verif = false;
-//		
-//			}
-//		}
-//	
-//		}
-//		while (verif == false);
-//		return true;
-//	}
 	
-//	public static void achat1ereversion(Client c, Medicament m)
-//	{
-//		if( lireClient() == true && lireMedicament() == true)
-//		{
-//			System.out.println("Saisir la quantité du produit " + m.getNom() +  " achetée : ");
-//			int quantite = sc.nextInt();
-//			m.setStock( m.getStock() - quantite);
-//			c.setCredit(c.getCredit() + quantite * m.getPrix());
-//			c.affichage();
-//			m.affichage();
-//		}
-//	}
+	public static void ajoutClient()
+	{
+		System.out.println("Saisir le nom du nouveau client : ");
 	
+	
+		String nom = sc.next();
+		Client c = new Client(nom, 0);
+		listeClient.add(c);
+		System.out.println("Le client " + c.getNom() + " a été enregistré !");
+		
+	}
+	
+	
+	public static void ajoutMedoc()
+	{
+		System.out.println("Saisir le nom du nouveau médicament : ");
+	
+		String nom = sc.next();
+		
+		System.out.println("Saisir à présent le prix unitaire du produit : ");
+		double prix = sc.nextDouble();
+		Medicament m = new Medicament(nom, prix, 0);
+	
+		listeMedoc.add(m);
+		
+		System.out.println("Le medicament " + m.getNom() + ", au prix unitaire de : " + m.getPrix() + " € a bien été enregistré !");
+		
+	}
 
 	
 	

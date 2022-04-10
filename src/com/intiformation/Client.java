@@ -36,7 +36,7 @@ public class Client
 	@Override
 	public String toString()
 	{
-		return "Client [nom=" + nom + ", credit=" + credit + "]";
+		return "Client [ Nom = " + nom + ", credit = " + credit + " € ]";
 	}
 	
 //GETTERS & SETTERS

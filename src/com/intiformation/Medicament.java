@@ -38,7 +38,7 @@ public class Medicament
 	@Override
 	public String toString()
 	{
-		return "Medicament [nom=" + nom + ", prix=" + prix + ", stock=" + stock + "]";
+		return "Medicament [ Nom =" + nom + ", prix =" + prix + "€, stock =" + stock + " unités ]";
 	}
 
 	
